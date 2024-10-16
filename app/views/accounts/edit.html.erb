@@ -1,6 +1,6 @@
 <h1 class="text-primary mb-4">Add New Account</h1>
 
-<%= form_with model: [@bank, @account], local: true, class: "p-4 border rounded shadow" do |form| %>
+<%= form_with model: [@bank, @account], local: true, class: "p-4 border rounded shadow my_form" do |form| %>
   <!-- Row for Account Number and Account Holder Name -->
   <div class="row mb-3">
     <!-- Account Number Field -->
@@ -33,7 +33,6 @@
     </div>
   </div>
 
-  <!-- Row for Closing Amount -->
   <div class="row mb-3">
     <!-- Closing Amount Field -->
     <div class="col-md-6">
@@ -45,6 +44,15 @@
   <!-- Save and Reset Buttons -->
   <div class="d-flex justify-content-start mt-4">
     <%= form.submit 'Save', class: "btn btn-warning px-4 me-2" %>
-    <%= link_to 'Reset', request.referrer, class: "btn btn-outline-secondary" %>
+    <%= link_to 'Reset', request.referrer, class: "btn btn-outline-secondary resetBtn" %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".resetBtn").click(function (e) {
+        e.preventDefault();
+        $(".my_form")[0].reset()
+    });
+  });
+</script>
