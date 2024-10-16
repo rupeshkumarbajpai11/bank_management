@@ -1,0 +1,49 @@
+<h1 class="text-primary mb-4">Welcome to <%= @bank.name %></h1>
+
+<h2 class="mb-4">Your Accounts:</h2>
+
+<%= link_to 'Add New Account', new_bank_account_path(@bank), class: 'btn btn-primary mb-4' %>
+
+<table class="table table-striped table-hover">
+  <thead class="table-light">
+    <tr>
+      <th>#</th> <!-- Row Numbering -->
+      <th>Account Number</th>
+      <th>Holder Name</th>
+      <th>Opening Amount (₹)</th>
+      <th>Opening Bonus (₹)</th>
+      <th>Closing Amount (₹)</th>
+      <th>Actions</th> <!-- Actions column -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each_with_index do |account, index| %>
+      <tr>
+        <td><%= index + 1 %></td> <!-- Adding row number -->
+        <td><%= account.account_number %></td>
+        <td><%= account.account_holder_name %></td>
+        <td><%= number_to_currency(account.opening_amount, unit: "₹") %></td>
+        <td><%= number_to_currency(account.opening_bonus, unit: "₹") %></td>
+        <td><%= number_to_currency(account.closing_amount, unit: "₹") %></td>
+        <td>
+          <a href="<%= edit_bank_account_path(@bank, account) %>" class="btn btn-warning btn-sm me-2">
+            <i class="bi bi-pencil-square"></i>
+          </a>
+          <form action="<%= bank_account_path(@bank, account) %>" method="post" style="display:inline;">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <button type="submit" class="btn btn-danger btn-sm" 
+              onclick="return confirm('Are you sure you want to delete this account?')">
+              <i class="bi bi-trash"></i> <!-- Trash Icon -->
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% end %>
+    <% unless @accounts.present? %>
+      <tr>
+        <td colspan="8" class='text-center'>No Record Found</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

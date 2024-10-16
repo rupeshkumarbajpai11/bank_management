@@ -1,0 +1,50 @@
+<h1 class="text-primary mb-4">Add New Account</h1>
+
+<%= form_with model: [@bank, @account], local: true, class: "p-4 border rounded shadow" do |form| %>
+  <!-- Row for Account Number and Account Holder Name -->
+  <div class="row mb-3">
+    <!-- Account Number Field -->
+    <div class="col-md-6">
+      <%= form.label :account_number, "Account Number", class: "form-label" %>
+      <%= form.text_field :account_number, class: "form-control", placeholder: "Enter Account Number", 
+         title: "Only numbers are allowed", required: true %>
+    </div>
+
+    <!-- Account Holder Name Field -->
+    <div class="col-md-6">
+      <%= form.label :account_holder_name, "Account Holder Name", class: "form-label" %>
+      <%= form.text_field :account_holder_name, class: "form-control", placeholder: "Enter Account Holder Name", 
+           pattern: "[a-zA-Z\s]*", title: "Only letters and spaces are allowed", required: true %>
+    </div>
+  </div>
+
+  <!-- Row for Opening Amount and Opening Bonus -->
+  <div class="row mb-3">
+    <!-- Opening Amount Field -->
+    <div class="col-md-6">
+      <%= form.label :opening_amount, "Opening Amount", class: "form-label" %>
+      <%= form.number_field :opening_amount, step: :any, class: "form-control", placeholder: "Enter Opening Amount", required: true %>
+    </div>
+
+    <!-- Opening Bonus Field -->
+    <div class="col-md-6">
+      <%= form.label :opening_bonus, "Opening Bonus", class: "form-label" %>
+      <%= form.number_field :opening_bonus, step: :any, class: "form-control", placeholder: "Enter Opening Bonus", required: true %>
+    </div>
+  </div>
+
+  <!-- Row for Closing Amount -->
+  <div class="row mb-3">
+    <!-- Closing Amount Field -->
+    <div class="col-md-6">
+      <%= form.label :closing_amount, "Closing Amount", class: "form-label" %>
+      <%= form.number_field :closing_amount, step: :any, class: "form-control", placeholder: "Enter Closing Amount", required: true %>
+    </div>
+  </div>
+
+  <!-- Save and Reset Buttons -->
+  <div class="d-flex justify-content-start mt-4">
+    <%= form.submit 'Save', class: "btn btn-warning px-4 me-2" %>
+    <%= link_to 'Reset', request.referrer, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>
